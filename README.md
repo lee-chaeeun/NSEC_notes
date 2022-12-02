@@ -98,11 +98,15 @@ you get a result somewhat like this...
 -----END PGP PUBLIC KEY BLOCK-----
 ```
 you can also have some fun encryptingand decrypting files using the generated key
+
 `gpg --output encryptedfile.gpg --encrypt --sign --armor --recipient yyy@yyy.com`
+
 `gpg --import encryptedfile.gpg`
+
 `gpg --decrypt encryptedfile > decryptedfile.txt`
 
 this outputs the following
+
 `gpg: encrypted with 3072-bit RSA key, ID xxxx, created xxxx-xx-xx`
 
 ### Hackthebox -Starting-point-Dancing exercise
