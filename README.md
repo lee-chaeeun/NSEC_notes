@@ -68,8 +68,8 @@ We need to generate a lot of random bytes. It is a good idea to perform
 some other action (type on the keyboard, move the mouse, utilize the
 disks) during the prime generation; this gives the random number
 generator a better chance to gain enough entropy.
-gpg: key C9363C374D7A30D6 marked as ultimately trusted
-gpg: revocation certificate stored as '/home/chae/.gnupg/openpgp-revocs.d/8533F3FA4572075FA5D655BCC9someverylonghashwithnumbers.rev'
+gpg: key longnumber marked as ultimately trusted
+gpg: revocation certificate stored as '/home/user/8533F3FA4572075FA5D655BCC9someverylonghashwithnumbers.rev'
 public and secret key created and signed.
 
 pub rsaxxx
