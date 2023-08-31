@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Chichi Pentest Voyage</title>
+<style>
+  body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+  }
+  .title-container {
+    text-align: center;
+    padding: 20px;
+    background-image: linear-gradient(45deg, #ffd1d1, #ffefba, #daffc7, #bae1ff, #dabaff);
+    background-size: 400% 400%;
+    animation: gradientBG 10s ease infinite;
+  }
+  .title {
+    font-size: 24px;
+    font-weight: bold;
+  }
+
+  .code-title {
+    font-size: 18px;
+    font-weight: bold;
+    margin-bottom: 5px;
+  }
+  
+  .code-container {
+    border: 1px solid #ccc;
+    padding: 10px;
+    margin: 10px;
+    position: relative;
+  }
+
+  .back-button {
+    position: absolute;
+    top: 10px;
+    left: 10px;
+    background-color: #f0f0f0;
+    border: none;
+    padding: 10px 10px;
+    cursor: pointer;
+    color: gray; /* Set button color to gray */
+    text-decoration: none; /* Remove underline */
+  }
+  
+  .back-button:focus,
+  .back-button:active {
+    outline: none; /* Remove focus outline and prevent color change on click */
+  }
+  
+  a {
+    color: inherit;
+    text-decoration: none;
+    transition: text-decoration 0.3s;
+  }
+
+  a:hover {
+    text-decoration: underline;
+  }
+
+  @keyframes gradientBG {
+    0% {
+      background-position: 0% 50%;
+    }
+    50% {
+      background-position: 100% 50%;
+    }
+    100% {
+      background-position: 0% 50%;
+    }
+
+
+  }
+
+</style>
+</head>
+<body>
+
+  <div class="title-container">
+    <div class="title"> Chichi Pentest Voyage </div>
+    <p> Hackthebox Tutorials </p>
+  </div>
+
+  <a class="back-button" href="index.html">Back</a>
+
+  <div class="code-container">
+    <div class="code-title"> 
+      <a href="startingpoint.html"> Starting Point </a>
+    </div>
+  </div>
+
+  <div class="code-container">
+    <div class="code-title"> 
+      <a href="hackthebox/openpgp.html"> OpenPGP for cryptographic key sharing on linux kernel  </a>
+    </div>
+  </div>
+  
+
+</body>
+</html>
