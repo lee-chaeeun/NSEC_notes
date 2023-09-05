@@ -1,0 +1,281 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title> Hackthebox Starting Point Crocodile exercise </title>
+
+<style>
+  body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+  }
+
+  .back-button {
+    position: absolute;
+    top: 10px;
+    left: 10px;
+    background-color: #f0f0f0;
+    border: none;
+    padding: 5px 10px;
+    cursor: pointer;
+    color: gray; /* Set button color to gray */
+    text-decoration: none; /* Remove underline */
+  }
+  .back-button:focus,
+  .back-button:active {
+    outline: none; /* Remove focus outline and prevent color change on click */
+  }
+
+  .title-container {
+    text-align: center;
+    padding: 20px;
+    background-color: #f0f0f0;
+  }
+  .title {
+    font-size: 24px;
+    font-weight: bold;
+  }
+  .code-container {
+  border: 1px solid #ccc;
+  padding: 10px;
+  margin: 10px;
+  position: relative;
+  border-radius: 10px; /* Rounded edges */
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* Soft shadow */
+}
+  .code-title {
+    font-size: 18px;
+    font-weight: bold;
+    margin-bottom: 5px;
+  }
+  .copy-button {
+    position: absolute;
+    top: 5px;
+    right: 5px;
+    background-color: #f0f0f0;
+    border: none;
+    padding: 5px 10px;
+    cursor: pointer;
+  }
+  /* Styling for code blocks */
+  pre {
+    background-color: black;
+    color: white;
+    padding: 10px;
+    overflow-x: auto;
+    border-radius: 10px; /* Rounded edges */
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* Soft shadow */
+    font-family: 'Courier New', monospace; /* Set a monospaced font */
+    font-size: 14px; /* Adjust font size as needed */
+    line-height: 1.4; /* Adjust line height for readability */
+  }
+
+
+</style>
+</head>
+
+<body>
+  <a class="back-button" href="../../../startingpoint.html">Back</a>
+ 
+  <div class="title-container">
+    <div class="title">Hackthebox Starting Point Crocodile </div>
+  </div>
+
+  <div class="code-container">
+    <div class="code-title">Brief intro to FTP</div>
+    <button class="copy-button">Copy</button>
+    <ul>
+    <li>Open-source relational database management system (RDBMS) </li>
+    <li>popular data repository for software applications</li>
+    <li>employs SQL, a query programming language, used to manage RDBMS</li>
+    <li>developed by MariaDB</li>
+   </ul>
+  </div>  
+
+  <div class="code-container">
+    <div class="code-title">Brief intro to Apache</div>
+    <button class="copy-button">Copy</button>
+    <ul>
+    <li>Open-source relational database management system (RDBMS) </li>
+    <li>popular data repository for software applications</li>
+    <li>employs SQL, a query programming language, used to manage RDBMS</li>
+    <li>developed by MariaDB</li>
+   </ul>
+  </div>  
+
+  <div class="code-container">
+    <div class="code-title">nmap scan</div>
+    <button class="copy-button">Copy</button>
+    <p> During our scan, which port running mysql do we find? </p>
+    <pre>
+      <code>
+        └─$ nmap 10.129.138.166 -sC -sV
+        Starting Nmap 7.93 ( https://nmap.org ) at 2023-09-04 22:01 CEST
+        Nmap scan report for 10.129.138.166
+        Host is up (0.044s latency).
+        Not shown: 998 closed tcp ports (conn-refused)
+        PORT   STATE SERVICE VERSION
+        21/tcp open  ftp     vsftpd 3.0.3
+        | ftp-syst: 
+        |   STAT: 
+        | FTP server status:
+        |      Connected to ::ffff:10.10.16.142
+        |      Logged in as ftp
+        |      TYPE: ASCII
+        |      No session bandwidth limit
+        |      Session timeout in seconds is 300
+        |      Control connection is plain text
+        |      Data connections will be plain text
+        |      At session startup, client count was 2
+        |      vsFTPd 3.0.3 - secure, fast, stable
+        |_End of status
+        | ftp-anon: Anonymous FTP login allowed (FTP code 230)
+        | -rw-r--r--    1 ftp      ftp            33 Jun 08  2021 allowed.userlist
+        |_-rw-r--r--    1 ftp      ftp            62 Apr 20  2021 allowed.userlist.passwd
+        80/tcp open  http    Apache httpd 2.4.41 ((Ubuntu))
+        |_http-title: Smash - Bootstrap Business Template
+        Service Info: OS: Unix
+        
+        Service detection performed. Please report any incorrect results at https://nmap.org/submit/ .
+        Nmap done: 1 IP address (1 host up) scanned in 1540.91 seconds        
+                                                                       
+    </code>
+    </pre>
+
+    <p>Service verison running on port 21 : vsFTPd 3.0.3 </p>
+  
+  </div>
+  
+  <div class="code-container">
+    <div class="code-title"> Interact with FTP server </div>
+    <button class="copy-button">Copy</button>
+    <p>FTP code for "Anonymous FTP login allowed" : 230 </p>
+    <p>Username used to login anonymously to FTP server: anonymous</p>
+    <p>Command to download files on FTP server: get</p>
+    <p>Apache HTTP Server running on target host: Apache httpd 2.4.41 </p>
+    
+    <pre>
+      <code>
+
+        └─$ ftp 10.129.138.166
+        Connected to 10.129.138.166.
+        220 (vsFTPd 3.0.3)
+        Name (10.129.138.166:bitchae): anonymous
+        230 Login successful.
+        Remote system type is UNIX.
+        Using binary mode to transfer files.
+        ftp> ls
+        229 Entering Extended Passive Mode (|||43116|)
+        150 Here comes the directory listing.
+        -rw-r--r--    1 ftp      ftp            33 Jun 08  2021 allowed.userlist
+        -rw-r--r--    1 ftp      ftp            62 Apr 20  2021 allowed.userlist.passwd
+        226 Directory send OK.
+        ftp> get allowed.userlist
+        local: allowed.userlist remote: allowed.userlist
+        229 Entering Extended Passive Mode (|||47166|)
+        150 Opening BINARY mode data connection for allowed.userlist (33 bytes).
+        100% |**************************************************************************************************************|    33        0.50 KiB/s    00:00 ETA
+        226 Transfer complete.
+        33 bytes received in 00:00 (0.20 KiB/s)
+        ftp> get allowed.userlist.passwd
+        local: allowed.userlist.passwd remote: allowed.userlist.passwd
+        229 Entering Extended Passive Mode (|||46541|)
+        150 Opening BINARY mode data connection for allowed.userlist.passwd (62 bytes).
+        100% |**************************************************************************************************************|    62        0.93 KiB/s    00:00 ETA
+        226 Transfer complete.
+        62 bytes received in 00:00 (0.38 KiB/s)       
+        
+      </code>
+    </pre>
+
+    <p>Contents of allowed.userlist</p>
+    <p>aron 
+      pwnmeow
+      egotisticalsw
+      admin
+      </p>
+
+    <p>Contents of allowed.userlist.passwd</p>
+    <p>root
+      Supersecretpassword1
+      @BaASD&9032123sADS
+      rKXM59ESxesUFHAd
+      </p>
+
+  </div>
+  
+
+  <div class="code-container">
+    <div class="code-title"> Interact with FTP server </div>
+    <button class="copy-button">Copy</button>
+    
+    <pre>
+      <code>
+        └─$ gobuster dir -u 10.129.198.157 -w /usr/share/dirb/wordlists/common.txt -x php
+        ===============================================================
+        Gobuster v3.6
+        by OJ Reeves (@TheColonial) & Christian Mehlmauer (@firefart)
+        ===============================================================
+        [+] Url:                     http://10.129.198.157
+        [+] Method:                  GET
+        [+] Threads:                 10
+        [+] Wordlist:                /usr/share/dirb/wordlists/common.txt
+        [+] Negative Status codes:   404
+        [+] User Agent:              gobuster/3.6
+        [+] Extensions:              php
+        [+] Timeout:                 10s
+        ===============================================================
+        Starting gobuster in directory enumeration mode
+        ===============================================================
+        /.php                 (Status: 403) [Size: 279]
+        /.hta                 (Status: 403) [Size: 279]
+        /.hta.php             (Status: 403) [Size: 279]
+        /.htaccess            (Status: 403) [Size: 279]
+        /.htaccess.php        (Status: 403) [Size: 279]
+        /.htpasswd            (Status: 403) [Size: 279]
+        /.htpasswd.php        (Status: 403) [Size: 279]
+        /assets               (Status: 301) [Size: 317] [--> http://10.129.198.157/assets/]
+        /config.php           (Status: 200) [Size: 0]
+        /css                  (Status: 301) [Size: 314] [--> http://10.129.198.157/css/]
+        /dashboard            (Status: 301) [Size: 320] [--> http://10.129.198.157/dashboard/]
+        /fonts                (Status: 301) [Size: 316] [--> http://10.129.198.157/fonts/]
+        /index.html           (Status: 200) [Size: 58565]
+        /js                   (Status: 301) [Size: 313] [--> http://10.129.198.157/js/]
+        /login.php            (Status: 200) [Size: 1577]
+        /logout.php           (Status: 302) [Size: 0] [--> login.php]
+        /server-status        (Status: 403) [Size: 279]
+        Progress: 8713 / 9230 (94.40%)[ERROR] Get "http://10.129.198.157/wap.php": context deadline exceeded (Client.Timeout exceeded while awaiting headers)       
+
+      </code>
+    </pre>
+
+    <p>Gobuster: command line tool used to brute-force URIs (directories, files, DNS subdomains) in websites</p>
+    <p>Switch to search for specific filetype : -x </p>
+    <p>PHP file found for authentifaction to web service: login.php</p>
+
+    <img src="website.png" alt="Website Authentication Page" width="400">
+    <img src="website_flag.png" alt="Website Authentication Success" width="400">
+
+  </div>
+
+
+  <script>
+    // Add copy functionality to each code block
+    const copyButtons = document.querySelectorAll('.copy-button');
+    copyButtons.forEach(button => {
+      button.addEventListener('click', () => {
+        const codeBlock = button.nextElementSibling.querySelector('code');
+        const range = document.createRange();
+        range.selectNode(codeBlock);
+        window.getSelection().removeAllRanges();
+        window.getSelection().addRange(range);
+        document.execCommand('copy');
+        window.getSelection().removeAllRanges();
+      });
+    });
+  </script>
+</body>
+</html>
