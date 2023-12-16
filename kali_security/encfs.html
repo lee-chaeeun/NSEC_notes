@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>OpenPGP Exercise</title>
+
+<style>
+  body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+  }
+
+  .back-button {
+    position: absolute;
+    top: 10px;
+    left: 10px;
+    background-color: #f0f0f0;
+    border: none;
+    padding: 5px 10px;
+    cursor: pointer;
+    color: gray; /* Set button color to gray */
+    text-decoration: none; /* Remove underline */
+  }
+  .back-button:focus,
+  .back-button:active {
+    outline: none; /* Remove focus outline and prevent color change on click */
+  }
+
+  .title-container {
+    text-align: center;
+    padding: 20px;
+    background-color: #f0f0f0;
+  }
+  .title {
+    font-size: 24px;
+    font-weight: bold;
+  }
+  .code-container {
+  border: 1px solid #ccc;
+  padding: 10px;
+  margin: 10px;
+  position: relative;
+  border-radius: 10px; /* Rounded edges */
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* Soft shadow */
+}
+  .code-title {
+    font-size: 18px;
+    font-weight: bold;
+    margin-bottom: 5px;
+  }
+  .copy-button {
+    position: absolute;  <div class="code-container">
+    <div class="code-title"> 
+      <a href="encfs.html"> AES Encrytption for Files/Folders on Linux </a>
+    </div>
+  </div>
+    top: 5px;
+    right: 5px;
+    background-color: #f0f0f0;
+    border: none;
+    padding: 5px 10px;
+    cursor: pointer;
+  }
+  /* Styling for code blocks */
+  pre {
+    background-color: black;
+    color: white;
+    padding: 10px;
+    overflow-x: auto;
+    border-radius: 10px; /* Rounded edges */
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* Soft shadow */
+    font-family: 'Courier New', monospace; /* Set a monospaced font */
+    font-size: 14px; /* Adjust font size as needed */
+  line-height: 1.4; /* Adjust line height for readability */
+  }
+
+
+</style>
+</head>
+
+<body>
+  <a class="back-button" href="../kali_security.html">Back</a>
+ 
+  <div class="title-container">
+    <div class="title"> AES Encrytption for Files/Folders on Linux</div>
+  </div>
+
+  <div class="code-container">
+    <div class="code-title">Brief intro to EncFS</div>
+
+    <ul>
+    <li>Terminal command to mount or create an encrypted virtual filesystem </li>
+    <li>Description</li>
+    <li> EncFS creates a virtual encrypted filesystem which stores encrypted data in the rootdir
+        directory and makes the unencrypted data visible at the mountPoint directory.  The user
+        must supply a password which is used to (indirectly) encrypt both filenames and file
+        contents.</li>
+    <li>
+        If EncFS is unable to find a supported filesystem at the specified rootdir, then the user
+        will be asked if they wish to create a new encrypted filesystem at the specified location.
+        Options will be presented to the user allowing some control over the algorithms to use.
+        As EncFS matures, there may be an increasing number of choices.
+    </li>
+
+  </ul>
+  </div>  
+
+  <div class="code-container">
+    <div class="code-title">Simple Example</div>
+    <button class="copy-button">Copy</button>
+    <p> check if OpenPGP is installed in system. Generally already installed in most linux distros </p>
+    <pre>
+      <code>
+        $ sudo apt install -y encfs
+      </code>
+    </pre>
+    <pre>
+      <code>
+
+        └─$ encfs ~/.enc ~/dec
+        The directory "/home/chichi/dec/" does not exist. Should it be created? (y,N) y
+        Creating new encrypted volume.
+        Please choose from one of the following options:
+         enter "x" for expert configuration mode,
+         enter "p" for pre-configured paranoia mode,
+         anything else, or an empty line will select standard mode.
+        ?> 
+        
+        Standard configuration selected.
+        
+        Configuration finished.  The filesystem to be created has
+        the following properties:
+        Filesystem cipher: "ssl/aes", version 3:0:2
+        Filename encoding: "nameio/block", version 4:0:2
+        Key Size: 192 bits
+        Block Size: 1024 bytes
+        Each file contains 8 byte header with unique IV data.
+        Filenames encoded using IV chaining mode.
+        File holes passed through to ciphertext.
+        
+        Now you will need to enter a password for your filesystem.
+        You will need to remember this password, as there is absolutely
+        no recovery mechanism.  However, the password can be changed
+        later using encfsctl.
+        
+        New Encfs Password: 
+        Verify Encfs Password: 
+        
+
+      </code>
+    </pre>
+    <p> Standard mode uses the following settings</p>
+    <li> Cipher: AES </li>
+    <li>  Key Size: 192 bits </li>  
+    <li>  PBKDF2 with 1/2 second runtime, 160 bit salt </li>  
+    <li>  Filesystem Block Size: 1024 bytes </li>  
+    <li>  Filename Encoding: Block encoding with IV chaining </li>  
+    <li>  Unique initialization vector file headers </li>  
+    <li>  File holes passed through </li>  
+
+    <p> Paranoia mode uses the following settings</p>
+    <li> Cipher: AES </li>
+    <li>  Key Size: 192 bits </li>  
+    <li>  PBKDF2 with 3 second runtime, 160 bit salt </li>  
+    <li>  Filesystem Block Size: 1024 bytes </li>  
+    <li>  Filename Encoding: Block encoding with IV chaining </li>  
+    <li>  Unique initialization vector file headers </li>  
+    <li> Message Authentication Code block headers</li>
+    <li> Exernal IV chaining</li>
+    <li>  File holes passed through </li>  
+    </p>
+
+    <p> Unmount folder, now it should no longer be visible</p>
+
+    <pre>
+      <code>
+    ┌──(chichi㉿chichi)-[~]
+    └─$ fusermount -u ~/dec
+
+      </code>
+    </pre>
+
+    <p>Mount filesystem again and make it visible! Observe in file manager or terminal</p>
+
+
+    <pre>
+        <code>
+<       ┌──(chichi㉿chichi)-[~]
+        └─$ encfs ~/.enc ~/enc
+>
+        </code>
+      </pre>
+
+  </div>
+  
+  <script>
+    // Add copy functionality to each code block
+    const copyButtons = document.querySelectorAll('.copy-button');
+    copyButtons.forEach(button => {
+      button.addEventListener('click', () => {
+        const codeBlock = button.parentElement.querySelector('pre code');
+        const range = document.createRange();
+        range.selectNode(codeBlock);
+        window.getSelection().removeAllRanges();
+        window.getSelection().addRange(range);
+        document.execCommand('copy');
+        window.getSelection().removeAllRanges();
+      });
+    });
+  </script>
+</body>
+</html>
