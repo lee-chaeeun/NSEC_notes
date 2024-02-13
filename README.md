@@ -6,3 +6,4 @@ Dit is een website waarbij ik mijn cyberveiligheid-kennis & passie voor verschil
 
 Hier zijn een paar goede oefeningen voor beginners in dit gebied. Ik ben zelf nog aan het groeien :) Ik zal dit proces documenteren in de korte termijnen van mijn leven, waarbij ik me niet te lui voel! 
 
+This website will be moving to a private server : https://lee-chaeeun.nl 
