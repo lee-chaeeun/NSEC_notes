@@ -1,9 +1,9 @@
-# Veiligheidsdagboek
+# Project to build a personal website
 
-### Kali, Linux, Cyberveiligheid/Security related journal
+Here I will be uploading snippets of code, relevant to building a personal website. 
 
-Dit is een website waarbij ik mijn cyberveiligheid-kennis & passie voor verschillende dingen in mijn leven deel. 
+FYI: I built a website using github pages previously, for the purpose of documenting personal interests. 
 
-Hier zijn een paar goede oefeningen voor beginners in dit gebied. Ik ben zelf nog aan het groeien :) Ik zal dit proces documenteren in de korte termijnen van mijn leven, waarbij ik me niet te lui voel! 
+This website will be moving to a private server :) : https://lee-chaeeun.nl 
 
-This website will be moving to a private server : https://lee-chaeeun.nl 
+
